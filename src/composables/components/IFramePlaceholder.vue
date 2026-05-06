@@ -20,7 +20,7 @@ function handleSubmit(e: Event) {
 
 <template>
   <NodeViewWrapper
-    class="media-placeholder-container my-4 relative w-full min-w-0 group"
+    class="media-placeholder-container relative w-full min-w-0 group my-2 sm:my-4"
     contenteditable="false"
   >
     <!-- Read-only State -->
@@ -28,10 +28,13 @@ function handleSubmit(e: Event) {
       v-if="!editor.isEditable"
       :class="[
         'flex flex-col items-center justify-center w-full rounded-xl border border-dashed border-[var(--vtip-placeholder-border)] bg-[var(--vtip-placeholder-bg)] text-[var(--vtip-placeholder-text)]',
-        isMaxSm ? 'h-[300px]' : 'h-[150px]'
+        isMaxSm ? 'min-h-[120px] py-5' : 'h-[150px]'
       ]"
     >
-      <Globe class="w-10 h-10 opacity-50 mb-3" stroke-width="1.5" />
+      <Globe
+        :class="['opacity-50', isMaxSm ? 'w-9 h-9 mb-2' : 'w-10 h-10 mb-3']"
+        stroke-width="1.5"
+      />
       <span class="text-sm">No embed selected</span>
     </div>
 
@@ -42,14 +45,22 @@ function handleSubmit(e: Event) {
       <div
         :class="[
           'flex items-center justify-center min-w-0 rounded-xl',
-          isMaxSm ? 'w-full h-[200px] p-4' : 'w-full max-w-2xl h-[150px] p-6'
+          isMaxSm ? 'w-full min-h-0 py-3 px-3' : 'w-full max-w-2xl h-[150px] p-6'
         ]"
       >
         <form
-          class="link-form flex flex-col w-full min-w-0 max-w-full sm:max-w-[360px] gap-3 overflow-hidden"
+          :class="[
+            'link-form flex flex-col w-full min-w-0 max-w-full sm:max-w-[360px] overflow-hidden',
+            isMaxSm ? 'gap-2' : 'gap-3'
+          ]"
           @submit="handleSubmit"
         >
-          <div class="flex items-center gap-2 mb-1 text-[var(--vtip-placeholder-text)]">
+          <div
+            :class="[
+              'flex items-center gap-2 text-[var(--vtip-placeholder-text)]',
+              isMaxSm ? 'mb-0' : 'mb-1'
+            ]"
+          >
             <Globe class="w-5 h-5 opacity-70 shrink-0" stroke-width="1.5" />
             <span class="text-sm font-medium">Embed URL</span>
           </div>

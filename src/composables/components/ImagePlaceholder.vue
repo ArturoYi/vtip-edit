@@ -40,19 +40,34 @@ async function openFileDialog() {
 
 </script>
 <template>
-    <NodeViewWrapper class="media-placeholder-container my-4 relative w-full min-w-0 group" contenteditable="false">
+    <NodeViewWrapper
+        class="media-placeholder-container relative w-full min-w-0 group my-2 sm:my-4"
+        contenteditable="false"
+    >
 
         <!-- Read-only State -->
-        <div v-if="!editor.isEditable"
-            :class="['media-placeholder-glass flex flex-col items-center justify-center w-full text-[var(--vtip-placeholder-text)]', isMaxSm ? 'h-[300px]' : 'h-[150px]']">
-            <ImageOff class="w-10 h-10 opacity-55 mb-3 drop-shadow-sm" stroke-width="1.5" />
+        <div
+            v-if="!editor.isEditable"
+            :class="[
+                'media-placeholder-glass flex flex-col items-center justify-center w-full text-[var(--vtip-placeholder-text)]',
+                isMaxSm ? 'min-h-[120px] py-5' : 'h-[150px]'
+            ]"
+        >
+            <ImageOff
+                :class="['opacity-55 drop-shadow-sm', isMaxSm ? 'w-9 h-9 mb-2' : 'w-10 h-10 mb-3']"
+                stroke-width="1.5"
+            />
             <span class="text-sm font-medium tracking-tight">No image selected</span>
         </div>
 
         <div v-else class="media-placeholder-glass w-full min-w-0 max-w-full">
 
             <div
-                :class="['media-placeholder-glass__inner flex min-w-0', isMaxSm ? 'flex-col w-full h-[300px]' : 'flex-row w-full max-w-2xl h-[150px]']">
+                :class="[
+                    'media-placeholder-glass__inner flex min-w-0',
+                    isMaxSm ? 'flex-col w-full h-auto' : 'flex-row w-full max-w-2xl h-[150px]'
+                ]"
+            >
 
                 <!-- Uploading Overlay -->
                 <div v-if="isUploading"
@@ -66,21 +81,47 @@ async function openFileDialog() {
                 <!-- Left/Top: Upload -->
                 <div
                     v-if="canLocalUpload"
-                    :class="['media-placeholder-glass__pane--upload flex flex-col items-center justify-center p-6 relative min-w-0', isMaxSm ? 'flex-1' : 'flex-1 min-w-0']">
-                    <button type="button"
-                        :class="['vtip-btn media-placeholder-glass__upload-btn flex flex-col gap-2.5 shrink-0 py-5', isMaxSm ? 'w-full h-full min-h-0' : 'w-full max-w-[200px] h-full min-h-0']"
-                        :disabled="isUploading" @click="openFileDialog">
-                        <UploadCloud class="w-9 h-9 opacity-90 shrink-0 text-[var(--vtip-code-function)]" stroke-width="1.5" />
+                    :class="[
+                        'media-placeholder-glass__pane--upload flex flex-col items-center justify-center relative min-w-0',
+                        isMaxSm ? 'flex-none p-3' : 'flex-1 min-w-0 p-6'
+                    ]"
+                >
+                    <button
+                        type="button"
+                        :class="[
+                            'vtip-btn media-placeholder-glass__upload-btn flex flex-col shrink-0',
+                            isMaxSm
+                                ? 'w-full gap-2 py-3 min-h-0'
+                                : 'gap-2.5 py-5 w-full max-w-[200px] h-full min-h-0'
+                        ]"
+                        :disabled="isUploading"
+                        @click="openFileDialog"
+                    >
+                        <UploadCloud
+                            :class="[
+                                'opacity-90 shrink-0 text-[var(--vtip-code-function)]',
+                                isMaxSm ? 'w-8 h-8' : 'w-9 h-9'
+                            ]"
+                            stroke-width="1.5"
+                        />
                         <span class="text-xs font-semibold uppercase tracking-wider opacity-90">Upload Image</span>
                     </button>
                 </div>
 
                 <!-- Right/Bottom: Link -->
                 <div
-                    class="link-section flex-1 flex flex-col items-center justify-center min-w-0 overflow-hidden p-4 sm:p-6">
+                    :class="[
+                        'link-section flex flex-col items-center justify-center min-w-0 overflow-hidden',
+                        isMaxSm ? 'flex-none p-3' : 'flex-1 p-4 sm:p-6'
+                    ]"
+                >
                     <form
-                        class="link-form flex flex-col w-full min-w-0 max-w-full sm:max-w-[260px] gap-3 overflow-hidden"
-                        @submit="handleSubmit">
+                        :class="[
+                            'link-form flex flex-col w-full min-w-0 max-w-full sm:max-w-[260px] overflow-hidden',
+                            isMaxSm ? 'gap-2' : 'gap-3'
+                        ]"
+                        @submit="handleSubmit"
+                    >
                         <div
                             :class="['link-form__input media-placeholder-glass__field flex items-center gap-2 min-h-[44px] px-3', isUploading ? 'media-placeholder-glass__field--disabled' : '']">
                             <Link class="w-4 h-4 text-[var(--vtip-placeholder-text)] shrink-0 opacity-80" />
