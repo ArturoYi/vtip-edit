@@ -4,15 +4,13 @@ import dts from 'vite-plugin-dts'
 import UnoCSS from 'unocss/vite'
 import { resolve } from 'path'
 
+import { cloudflare } from "@cloudflare/vite-plugin";
+
 export default defineConfig({
-  plugins: [
-    vue(),
-    UnoCSS(),
-    dts({
-      insertTypesEntry: true,
-      cleanVueFileName: true,
-    }),
-  ],
+  plugins: [vue(), UnoCSS(), dts({
+    insertTypesEntry: true,
+    cleanVueFileName: true,
+  }), cloudflare()],
   server: {
     host: true,
   },

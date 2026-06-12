@@ -22,7 +22,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
-    "preview": "vite preview",
+    "preview": "pnpm run build && wrangler dev",
     "commit": "czg",
     "changelog": "standard-version --skip.commit --skip.tag",
     "changelog:preview": "standard-version --dry-run",
@@ -31,7 +31,8 @@
     "release:minor": "standard-version --release-as minor",
     "release:major": "standard-version --release-as major",
     "prepare": "node scripts/prepare-husky.cjs",
-    "commitlint": "commitlint --edit"
+    "commitlint": "commitlint --edit",
+    "deploy": "pnpm run build && wrangler deploy"
   },
   "config": {
     "commitizen": {
@@ -97,6 +98,7 @@
     "vue-sonner": "^2.0.9"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.40.2",
     "@commitlint/cli": "^20.5.0",
     "@commitlint/config-conventional": "^20.5.0",
     "@types/node": "^20.0.0",
@@ -111,7 +113,8 @@
     "vite": "^7.3.1",
     "vite-plugin-dts": "^4.5.4",
     "vue": "^3.5.27",
-    "vue-tsc": "^2.0.0"
+    "vue-tsc": "^2.0.0",
+    "wrangler": "^4.100.0"
   },
   "peerDependencies": {
     "reka-ui": "^2.8.0",
